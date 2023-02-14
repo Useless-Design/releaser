@@ -42,6 +42,12 @@ class Git {
     const commits = await this.git.log({ from: branch });
     return commits;
   }
+
+  // 获取所有的提交信息
+  public async getAllCommits(): Promise<LogResult<DefaultLogFields>> {
+    const commits = await this.git.log();
+    return commits;
+  }
 }
 
 const git = new Git();
