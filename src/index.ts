@@ -1,5 +1,5 @@
-import {repo} from './utils/git'
+import git from "./utils/git";
 
-repo( './' ).then( ( repo ) => {
-  console.log( repo )
-})
+git.createTag("v1.0.0").then((tag) => {
+  console.log(tag);
+});

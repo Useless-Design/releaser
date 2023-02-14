@@ -1,21 +1,21 @@
-import Git, { Repository } from 'nodegit'
-import path from 'path'
+import fse from "fs-extra";
+import { simpleGit, SimpleGit } from "simple-git";
 
-export const repo = async ( p: string ) => {
-  const relativePath = path.resolve( p )
-  const repo = await Git.Repository.open( relativePath )
-  return repo
+// 使用simpleGit库，封装一个单例git类
+class Git {
+  private git: SimpleGit;
+
+  constructor() {
+    this.git = simpleGit();
+  }
+
+  // 创建tag
+  public async createTag(tagName: string): Promise<{ name: string }> {
+    const tag = await this.git.addTag(tagName);
+    return tag;
+  }
 }
 
-export const branch = async ( repo: Repository, branchName: string ) => {
-  const branch = await repo.getBranch( branchName )
-  return branch
-}
+const git = new Git();
 
-export const commitForTag = async ( repo: Repository, tagName: string ) => {
-  const tag = await repo.getTagByName( tagName )
-  const commit = await repo.getCommit( tag.targetId() )
-  return commit
-}
-
-export default Git
+export default git;
