@@ -1,13 +1,13 @@
-import fse from "fs-extra";
+import fse from 'fs-extra';
 
 export const getRootPath = () => {
-  let rootPath = "";
-  while (rootPath === "") {
-    if (fse.existsSync(".git")) {
+  let rootPath = '';
+  while (rootPath === '') {
+    if (fse.existsSync('.git')) {
       rootPath = process.cwd();
       break;
     } else {
-      process.chdir("..");
+      process.chdir('..');
     }
   }
   return rootPath;
@@ -29,8 +29,8 @@ export const getVersion = async () => {
  * @param version
  * @returns string
  */
-export const upgradeForMajor = (version: string) => {
-  const [major] = version.split(".");
+export const upgradeForMajor = (version) => {
+  const [major] = version.split('.');
   // 匹配开头的英文信息 并在升版本后保留
   const prefix = version.match(/^[a-zA-Z]+/);
   if (prefix) {
@@ -47,8 +47,8 @@ export const upgradeForMajor = (version: string) => {
  * @param version
  * @returns string
  */
-export const upgradeForMinor = (version: string) => {
-  const [major, minor] = version.split(".");
+export const upgradeForMinor = (version) => {
+  const [major, minor] = version.split('.');
   return `${major}.${Number(minor) + 1}.0`;
 };
 
@@ -60,8 +60,8 @@ export const upgradeForMinor = (version: string) => {
  * @param version
  * @returns string
  */
-export const upgradeForPatch = (version: string) => {
-  const [major, minor, patch] = version.split(".");
+export const upgradeForPatch = (version) => {
+  const [major, minor, patch] = version.split('.');
   return `${major}.${minor}.${Number(patch) + 1}`;
 };
 
@@ -73,11 +73,11 @@ export const upgradeForPatch = (version: string) => {
  * @param version
  * @returns string
  */
-export const upgradeForAlpha = (version: string) => {
-  const [major, minor, patch] = version.split(".");
+export const upgradeForAlpha = (version) => {
+  const [major, minor, patch] = version.split('.');
   const alpha = version.match(/alpha\.\d+/);
   if (alpha) {
-    const [prefix, num] = alpha[0].split(".");
+    const [prefix, num] = alpha[0].split('.');
     return `${major}.${minor}.${patch}-${prefix}.${Number(num) + 1}`;
   }
   return `${major}.${minor}.${patch}-alpha.1`;
@@ -92,11 +92,11 @@ export const upgradeForAlpha = (version: string) => {
  * @param version
  * @returns string
  */
-export const upgradeForBeta = (version: string) => {
-  const [major, minor, patch] = version.split(".");
+export const upgradeForBeta = (version) => {
+  const [major, minor, patch] = version.split('.');
   const beta = version.match(/beta\.\d+/);
   if (beta) {
-    const [prefix, num] = beta[0].split(".");
+    const [prefix, num] = beta[0].split('.');
     return `${major}.${minor}.${patch}-${prefix}.${Number(num) + 1}`;
   }
   return `${major}.${minor}.${patch}-beta.1`;
@@ -112,11 +112,11 @@ export const upgradeForBeta = (version: string) => {
  * @param version
  * @returns string
  */
-export const upgradeForRc = (version: string) => {
-  const [major, minor, patch] = version.split(".");
+export const upgradeForRc = (version) => {
+  const [major, minor, patch] = version.split('.');
   const rc = version.match(/rc\.\d+/);
   if (rc) {
-    const [prefix, num] = rc[0].split(".");
+    const [prefix, num] = rc[0].split('.');
     return `${major}.${minor}.${patch}-${prefix}.${Number(num) + 1}`;
   }
   return `${major}.${minor}.${patch}-rc.1`;
@@ -127,12 +127,10 @@ export const upgradeForRc = (version: string) => {
  * @param version
  * @returns string
  */
-export const upgradeForCustom = (version: string) => {
-  return version;
-};
+export const upgradeForCustom = (version) => version;
 
 // 获取所有升级后的版本号
-export const getNewVersion = (version: string) => {
+export const getNewVersion = (version) => {
   const major = upgradeForMajor(version);
   const minor = upgradeForMinor(version);
   const patch = upgradeForPatch(version);
