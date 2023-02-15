@@ -1,17 +1,5 @@
 import fse from 'fs-extra';
-
-export const getRootPath = () => {
-  let rootPath = '';
-  while (rootPath === '') {
-    if (fse.existsSync('.git')) {
-      rootPath = process.cwd();
-      break;
-    } else {
-      process.chdir('..');
-    }
-  }
-  return rootPath;
-};
+import { getRootPath } from './file.js';
 
 // 获取目标根目录中的package.json文件中的version
 export const getVersion = async () => {

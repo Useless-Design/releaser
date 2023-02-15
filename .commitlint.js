@@ -1,4 +1,5 @@
 module.exports = {
+  branches: 'all', // all、main、master
   enums: ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci', 'chore', 'revert'],
   types: [
     { type: 'feat', section: 'Features', emoji: '✨' },

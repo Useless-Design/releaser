@@ -4,8 +4,16 @@ import git from './git.js';
 
 // 询问是否发布版本
 export const askPublish = async () => {
+  const curBranch = await git.getCurrentBranch();
   const hasUnCommit = await git.hasUncommittedChanges();
-  console.log('8-「inquirer」', hasUnCommit);
+  if (curBranch !== 'master') {
+    console.log(chalk.red('🚫 请在master分支上发布版本'));
+    process.exit(1);
+  }
+  if (hasUnCommit) {
+    console.log(chalk.red('🚫 请先提交所有代码'));
+    process.exit(1);
+  }
   const { publish } = await inquirer.prompt([
     {
       type: 'confirm',
