@@ -2,6 +2,7 @@
 const { exec } = require('child_process');
 
 const resultHandler = async (result) => {
+  console.log('5-「handler」', result);
   const {
     publish, version: { type, version: newVersion }, release, push, changelog, tag,
   } = result;

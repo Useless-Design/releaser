@@ -11,7 +11,7 @@ const askPublish = async () => {
     process.exit(1);
   }
   const hasUnCommit = await git.hasUncommittedChanges();
-  if (hasUnCommit) {
+  if (!hasUnCommit) {
     console.log(shellColor.red('🚫 请先提交所有代码'));
     process.exit(1);
   }
