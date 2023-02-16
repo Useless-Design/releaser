@@ -1,4 +1,4 @@
-import { CleanOptions, simpleGit } from 'simple-git';
+import { simpleGit } from 'simple-git';
 
 const options = {
   baseDir: process.cwd(),
@@ -13,7 +13,7 @@ class Git {
   #branch;
 
   constructor() {
-    this.#git = simpleGit(options).clean(CleanOptions.FORCE);
+    this.#git = simpleGit(options);
     this.#branch = '';
   }
 
@@ -43,7 +43,7 @@ class Git {
     return commits;
   }
 
-  // 判断是否有未提交的数据
+  // 判断是否有未提交的数据 不对数据进行处理
   async hasUncommittedChanges() {
     const status = await this.#git.status();
     return status.files.length > 0;

@@ -15,9 +15,15 @@ export const getRootPath = () => {
 
 export const readConfig = async () => {
   const rootPath = getRootPath();
-  const configPath = `${rootPath}/.commitlint.js`;
-  const config = await fse.readJSON(configPath);
-  return config;
+  const configPath = `${rootPath}/.commitlint.json`;
+
+  let configFile = {};
+  // 获取js文件导出的信息 支持commonjs和es6
+  if (fse.existsSync(configPath)) {
+    // 导入json文件
+    configFile = await import(configPath,{assert: { type: 'json' }}).default; 
+  }
+  return configFile;
 };
 
 export default getRootPath;

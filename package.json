@@ -8,6 +8,7 @@
     "releaser": "src/index.mjs"
   },
   "scripts": {
+    "dev": "nodemon --watch src --exec \"node --experimental-specifier-resolution=node --experimental-modules\" src/index.js",
     "lint": "eslint --ext .mjs .",
     "lint:fix": "eslint --ext .mjs . --fix"
   },

@@ -1,0 +1,35 @@
+{
+  "branch": "master",
+  "enums": ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore", "revert"],
+  "types": [
+    { "type": "feat", "section": "Features", "emoji": "✨" },
+    { "type": "fix", "section": "Bug Fixes", "emoji": "🐛" },
+    {
+      "type": "docs", "section": "Documentation", "emoji": "📚"
+    },
+    {
+      "type": "style", "section": "Styles", "emoji": "💄"
+    },
+    {
+      "type": "refactor", "section": "Code Refactoring", "emoji": "📦"
+    },
+    {
+      "type": "perf", "section": "Performance Improvements", "emoji": "🚀"
+    },
+    {
+      "type": "test", "section": "Tests", "emoji": "🚨"
+    },
+    {
+      "type": "build", "section": "Build System", "emoji": "👷"
+    },
+    {
+      "type": "ci", "section": "Continuous Integration", "emoji": "🎡"
+    },
+    {
+      "type": "chore", "section": "Chores", "emoji": "🗯"
+    },
+    {
+      "type": "revert", "section": "Reverts", "emoji": "⏪"
+    }
+  ]
+}

@@ -1,15 +1,16 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import git from './git.js';
+import config from './config.js';
 
 // 询问是否发布版本
 export const askPublish = async () => {
   const curBranch = await git.getCurrentBranch();
-  const hasUnCommit = await git.hasUncommittedChanges();
-  if (curBranch !== 'master') {
+  if (!config.isMatchBranch(curBranch)) {
     console.log(chalk.red('🚫 请在master分支上发布版本'));
     process.exit(1);
   }
+  const hasUnCommit = await git.hasUncommittedChanges();
   if (hasUnCommit) {
     console.log(chalk.red('🚫 请先提交所有代码'));
     process.exit(1);

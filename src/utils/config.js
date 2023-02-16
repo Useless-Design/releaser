@@ -1,5 +1,7 @@
-module.exports = {
-  branches: 'all', // all、main、master
+import { readConfig } from './file.js';
+
+const defaultConfig = {
+  branch: 'all',
   enums: ['feat', 'fix', 'docs', 'style', 'refactor', 'perf', 'test', 'build', 'ci', 'chore', 'revert'],
   types: [
     { type: 'feat', section: 'Features', emoji: '✨' },
@@ -33,3 +35,31 @@ module.exports = {
     },
   ],
 };
+
+class Config {
+  #config = {
+    branch: 'all',
+  };
+
+  constructor() {
+    readConfig().then((config) => {
+      this.#config = {
+        ...defaultConfig,
+        ...config,
+      };
+    });
+  }
+
+  // 根据分支名称判断是否符合配置
+  isMatchBranch(curBranch) {
+    const { branch } = this.#config;
+    if (branch === 'all') {
+      return true;
+    }
+    return branch.includes(curBranch);
+  }
+}
+
+const config = new Config();
+
+export default config;
