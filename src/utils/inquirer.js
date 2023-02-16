@@ -1,25 +1,25 @@
-import inquirer from 'inquirer';
-import chalk from 'chalk';
-import git from './git.js';
-import config from './config.js';
+const inquirer = require('inquirer');
+const shellColor = require('./color.js');
+const git = require('./git.js');
+const config = require('./config.js');
 
 // 询问是否发布版本
-export const askPublish = async () => {
+const askPublish = async () => {
   const curBranch = await git.getCurrentBranch();
   if (!config.isMatchBranch(curBranch)) {
-    console.log(chalk.red('🚫 请在master分支上发布版本'));
+    console.log(shellColor.red('🚫 请在master分支上发布版本'));
     process.exit(1);
   }
   const hasUnCommit = await git.hasUncommittedChanges();
   if (hasUnCommit) {
-    console.log(chalk.red('🚫 请先提交所有代码'));
+    console.log(shellColor.red('🚫 请先提交所有代码'));
     process.exit(1);
   }
   const { publish } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'publish',
-      message: chalk.green('🚀 是否发布版本'),
+      message: shellColor.green('🚀 是否发布版本'),
       default: true,
     },
   ]);
@@ -27,7 +27,7 @@ export const askPublish = async () => {
 };
 
 // 询问版本号
-export const askVersion = async (curVersion, allVersion) => {
+const askVersion = async (curVersion, allVersion) => {
   const {
     major, minor, patch, alpha, beta, rc,
   } = allVersion;
@@ -35,7 +35,7 @@ export const askVersion = async (curVersion, allVersion) => {
     {
       type: 'list',
       name: 'version',
-      message: chalk.green(`🔥 当前版本号: ${curVersion}`),
+      message: shellColor.green(`🔥 当前版本号: ${curVersion}`),
       choices: [
         {
           name: `patch: ${patch}`,
@@ -74,7 +74,7 @@ export const askVersion = async (curVersion, allVersion) => {
             {
               type: 'input',
               name: 'version',
-              message: chalk.green('🎨 请输入版本号'),
+              message: shellColor.green('🎨 请输入版本号'),
               validate: (input) => {
                 if (/^(\d+\.){2}\d+(-\w+\.\d+)?$/.test(input)) {
                   return true;
@@ -95,12 +95,12 @@ export const askVersion = async (curVersion, allVersion) => {
 };
 
 // 询问是否发行
-export const askRelease = async () => {
+const askRelease = async () => {
   const { release } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'release',
-      message: chalk.green('🎉 是否发行?'),
+      message: shellColor.green('🎉 是否发行?'),
       default: true,
     },
   ]);
@@ -108,12 +108,12 @@ export const askRelease = async () => {
 };
 
 // 询问是否推送
-export const askPush = async () => {
+const askPush = async () => {
   const { push } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'push',
-      message: chalk.green('📦 是否推送到远程仓库?'),
+      message: shellColor.green('📦 是否推送到远程仓库?'),
       default: true,
     },
   ]);
@@ -121,13 +121,13 @@ export const askPush = async () => {
 };
 
 // 询问是否创建 changelog
-export const askChangelog = async () => {
+const askChangelog = async () => {
   const { changelog } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'changelog',
-      // chalk + emoji
-      message: chalk.green('📝 是否创建 CHANGELOG'),
+      // shellColor + emoji
+      message: shellColor.green('📝 是否创建 CHANGELOG'),
       default: true,
     },
   ]);
@@ -135,14 +135,23 @@ export const askChangelog = async () => {
 };
 
 // 询问是否创建tag
-export const askTag = async () => {
+const askTag = async () => {
   const { tag } = await inquirer.prompt([
     {
       type: 'confirm',
       name: 'tag',
-      message: chalk.green('🔖 是否创建 tag'),
+      message: shellColor.green('🔖 是否创建 tag'),
       default: true,
     },
   ]);
   return tag;
+};
+
+module.exports = {
+  askPublish,
+  askVersion,
+  askRelease,
+  askPush,
+  askChangelog,
+  askTag,
 };

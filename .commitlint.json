@@ -1,5 +1,5 @@
 {
-  "branch": "master",
+  "branch": "all",
   "enums": ["feat", "fix", "docs", "style", "refactor", "perf", "test", "build", "ci", "chore", "revert"],
   "types": [
     { "type": "feat", "section": "Features", "emoji": "✨" },

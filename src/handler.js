@@ -34,4 +34,4 @@ const resultHandler = async (result) => {
   }
 };
 
-export default resultHandler;
+module.exports = resultHandler;

@@ -1,4 +1,4 @@
-import { simpleGit } from 'simple-git';
+const { simpleGit } = require('simple-git');
 
 const options = {
   baseDir: process.cwd(),
@@ -52,4 +52,4 @@ class Git {
 
 const git = new Git();
 
-export default git;
+module.exports = git;

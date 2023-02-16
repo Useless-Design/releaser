@@ -1,4 +1,4 @@
-import { readConfig } from './file.js';
+const { readConfig } = require('./file.js');
 
 const defaultConfig = {
   branch: 'all',
@@ -62,4 +62,4 @@ class Config {
 
 const config = new Config();
 
-export default config;
+module.exports = config;

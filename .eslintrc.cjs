@@ -1,6 +1,5 @@
 module.exports = {
   env: {
-    es2021: true,
     node: true,
   },
   extends: ['airbnb-base', 'eslint:recommended', 'plugin:import/recommended'],
@@ -8,10 +7,12 @@ module.exports = {
   ],
   plugins: ['import'],
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    ecmaVersion: 2018,
+    sourceType: 'commonjs',
   },
   rules: {
+    'global-require': 'off',
+    'import/no-dynamic-require': 'off',
     'no-console': 'off',
     // 检查导入的模块是否存在
     'import/no-unresolved': 'error',

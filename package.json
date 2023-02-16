@@ -2,13 +2,12 @@
   "name": "releaser",
   "version": "1.0.0",
   "description": "",
-  "main": "src/index.mjs",
-  "type": "module",
+  "main": "src/index.js",
   "bin": {
-    "releaser": "src/index.mjs"
+    "releaser": "src/index.js"
   },
   "scripts": {
-    "dev": "nodemon --watch src --exec \"node --experimental-specifier-resolution=node --experimental-modules\" src/index.js",
+    "dev": "nodemon --watch src --exec src/index.js",
     "lint": "eslint --ext .mjs .",
     "lint:fix": "eslint --ext .mjs . --fix"
   },
@@ -23,7 +22,7 @@
   "dependencies": {
     "chalk": "^5.2.0",
     "fs-extra": "^11.1.0",
-    "inquirer": "^9.1.4",
+    "inquirer": "^8.0.0",
     "simple-git": "^3.16.0"
   },
   "engines": {

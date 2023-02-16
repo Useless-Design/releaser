@@ -1,8 +1,8 @@
-import fse from 'fs-extra';
-import { getRootPath } from './file.js';
+const fse = require('fs-extra');
+const { getRootPath } = require('./file.js');
 
 // 获取目标根目录中的package.json文件中的version
-export const getVersion = async () => {
+const getVersion = async () => {
   const rootPath = getRootPath();
   const packagePath = `${rootPath}/package.json`;
   const packageJson = await fse.readJSON(packagePath);
@@ -17,7 +17,7 @@ export const getVersion = async () => {
  * @param version
  * @returns string
  */
-export const upgradeForMajor = (version) => {
+const upgradeForMajor = (version) => {
   const [major] = version.split('.');
   // 匹配开头的英文信息 并在升版本后保留
   const prefix = version.match(/^[a-zA-Z]+/);
@@ -35,7 +35,7 @@ export const upgradeForMajor = (version) => {
  * @param version
  * @returns string
  */
-export const upgradeForMinor = (version) => {
+const upgradeForMinor = (version) => {
   const [major, minor] = version.split('.');
   return `${major}.${Number(minor) + 1}.0`;
 };
@@ -48,7 +48,7 @@ export const upgradeForMinor = (version) => {
  * @param version
  * @returns string
  */
-export const upgradeForPatch = (version) => {
+const upgradeForPatch = (version) => {
   const [major, minor, patch] = version.split('.');
   return `${major}.${minor}.${Number(patch) + 1}`;
 };
@@ -61,7 +61,7 @@ export const upgradeForPatch = (version) => {
  * @param version
  * @returns string
  */
-export const upgradeForAlpha = (version) => {
+const upgradeForAlpha = (version) => {
   const [major, minor, patch] = version.split('.');
   const alpha = version.match(/alpha\.\d+/);
   if (alpha) {
@@ -80,7 +80,7 @@ export const upgradeForAlpha = (version) => {
  * @param version
  * @returns string
  */
-export const upgradeForBeta = (version) => {
+const upgradeForBeta = (version) => {
   const [major, minor, patch] = version.split('.');
   const beta = version.match(/beta\.\d+/);
   if (beta) {
@@ -100,7 +100,7 @@ export const upgradeForBeta = (version) => {
  * @param version
  * @returns string
  */
-export const upgradeForRc = (version) => {
+const upgradeForRc = (version) => {
   const [major, minor, patch] = version.split('.');
   const rc = version.match(/rc\.\d+/);
   if (rc) {
@@ -115,10 +115,10 @@ export const upgradeForRc = (version) => {
  * @param version
  * @returns string
  */
-export const upgradeForCustom = (version) => version;
+const upgradeForCustom = (version) => version;
 
 // 获取所有升级后的版本号
-export const getNewVersion = (version) => {
+const getNewVersion = (version) => {
   const major = upgradeForMajor(version);
   const minor = upgradeForMinor(version);
   const patch = upgradeForPatch(version);
@@ -135,4 +135,15 @@ export const getNewVersion = (version) => {
     rc,
     custom,
   };
+};
+
+module.exports = {
+  getVersion,
+  getNewVersion,
+  upgradeForRc,
+  upgradeForBeta,
+  upgradeForAlpha,
+  upgradeForPatch,
+  upgradeForMinor,
+  upgradeForMajor,
 };

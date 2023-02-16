@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
-import {
+const {
   askPublish, askVersion, askChangelog, askPush, askRelease, askTag,
-} from './utils/inquirer.js';
-import { getNewVersion, getVersion } from './utils/version.js';
+} = require('./utils/inquirer.js');
+const { getNewVersion, getVersion } = require('./utils/version.js');
 
 // 执行命令 询问用户输入获取结果
 const init = async () => {
