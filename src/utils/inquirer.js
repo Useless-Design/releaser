@@ -147,6 +147,18 @@ const askTag = async () => {
   return tag;
 };
 
+const askSaveUnqualifiedVCommits = async () => {
+  const { save } = await inquirer.prompt([
+    {
+      type: 'confirm',
+      name: 'save',
+      message: shellColor.green('📝 是否保存不合格的提交记录(默认不保存)'),
+      default: false,
+    },
+  ]);
+  return save;
+};
+
 module.exports = {
   askPublish,
   askVersion,
@@ -154,4 +166,5 @@ module.exports = {
   askPush,
   askChangelog,
   askTag,
+  askSaveUnqualifiedVCommits,
 };

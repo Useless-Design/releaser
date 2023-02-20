@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "chalk": "^5.2.0",
+    "date-fns": "^2.29.3",
     "fs-extra": "^11.1.0",
     "inquirer": "^8.0.0",
     "simple-git": "^3.16.0"

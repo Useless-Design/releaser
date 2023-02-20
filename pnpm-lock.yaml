@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   chalk: ^5.2.0
+  date-fns: ^2.29.3
   eslint: ^7.32.0 || ^8.2.0
   eslint-config-airbnb-base: ^15.0.0
   eslint-plugin-import: ^2.25.2
@@ -11,6 +12,7 @@ specifiers:
 
 dependencies:
   chalk: 5.2.0
+  date-fns: 2.29.3
   fs-extra: 11.1.0
   inquirer: 8.2.5
   simple-git: 3.16.0
@@ -281,6 +283,11 @@ packages:
       shebang-command: 2.0.0
       which: 2.0.2
     dev: true
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: false
 
   /debug/3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}

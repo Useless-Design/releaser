@@ -37,22 +37,31 @@ const defaultConfig = {
 };
 
 class Config {
-  #config = {
-    branch: 'all',
-  };
-
   constructor() {
-    readConfig().then((config) => {
-      this.#config = {
-        ...defaultConfig,
-        ...config,
-      };
-    });
+    this.config = {
+      ...defaultConfig,
+    };
+  }
+
+  async init() {
+    const config = await readConfig();
+    this.config = {
+      ...defaultConfig,
+      ...config,
+    };
+  }
+
+  getEnums() {
+    return this.config.enums;
+  }
+
+  getTemplate() {
+    return this.config.saveTemplate;
   }
 
   // 根据分支名称判断是否符合配置
   isMatchBranch(curBranch) {
-    const { branch } = this.#config;
+    const { branch } = this.config;
     if (branch === 'all') {
       return true;
     }

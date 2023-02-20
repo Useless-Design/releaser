@@ -5,6 +5,9 @@ const {
 } = require('./utils/inquirer.js');
 const { getNewVersion, getVersion } = require('./utils/version.js');
 const resultHandler = require('./handler.js');
+const config = require('./utils/config.js');
+
+config.init();
 
 // 执行命令 询问用户输入获取结果
 const init = async () => {
@@ -27,24 +30,13 @@ const init = async () => {
   if (!result.publish) {
     process.exit(0);
   }
-  result.version = await askVersion(curVersion, allVersion);
-  result.tag = await askTag();
-  result.changelog = await askChangelog();
-  result.push = await askPush();
-  result.release = await askRelease();
+  // result.version = await askVersion(curVersion, allVersion);
+  // result.tag = await askTag();
+  // result.changelog = await askChangelog();
+  // result.push = await askPush();
+  // result.release = await askRelease();
 
   resultHandler(result);
 };
 
 init();
-// resultHandler({
-//   publish: false,
-//   version: {
-//     type: 'patch',
-//     version: '1.0.0',
-//   },
-//   release: false,
-//   push: false,
-//   changelog: false,
-//   tag: false,
-// });
