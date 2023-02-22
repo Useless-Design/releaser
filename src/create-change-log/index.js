@@ -1,8 +1,8 @@
 const fse = require('fs-extra');
-const { format } = require('date-fns');
 const git = require('../utils/git');
 const config = require('../utils/config');
 const { askSaveUnqualifiedVCommits } = require('../utils/inquirer');
+const transformCommitsToMd = require('./transform-commit-to-md');
 
 const enums = config.getEnums();
 
@@ -101,48 +101,23 @@ const classifyCommits = (commits) => {
   commits.all.forEach((commit) => {
     const { message } = commit;
     const { type } = parserMessage(message);
-    if (enums.includes(type)) {
-      result[type].push(commit);
-    }
+    enums.some((item) => {
+      if (type.includes(item)) {
+        result[item].push(commit);
+        return true;
+      }
+      return false;
+    });
   });
   return result;
-};
-
-const formatMessage = (message, commit, template) => {
-  const {
-    author, date, branch, type, hash,
-  } = template;
-  // 根据字段 生成不同格式的message
-  if (type) {
-    return `- ${message}
-    ${author ? `author:${commit.author_name}` : ''} ${date ? `submitTime:${format(commit.date, 'YYYY-MM-DD HH:mm:ss')}` : ''} ${branch ? `branch:${commit.branch}` : ''} ${hash ? `commit ID:${commit.hash}` : ''}}`;
-  return `- ${message}`
-}
-
-// 将commits改造成md格式 根据配置 来决定是否生成邮箱、提交人、提交时间等信息
-const transformCommitsToMd = (commits, version) => {
-  const template = config.getTemplate();
-  const result = [`## ${version}`];
-
-  enums.forEach((item) => {
-    if (commits[item].length > 0) {
-      result.push(`### ${item}`);
-      commits[item].forEach((commit) => {
-        const { message } = commit;
-        if (type) {
-          result.push(formatMessage(message, commit, template));
-        }
-        const content = message.split(':')[1];
-        result.push(formatMessage(content, commit, template));
-      });
-    }
-  });
-  return result.join('\r');
 };
 
 // 追加到changelog.md文件中 如果没有md文件则创建
 const appendToChangelog = async (cms, version) => {
   const commits = classifyCommits(cms);
+  console.log('114-「index」', commits);
+  const template = config.getTemplate();
+
   // 如果存在不规范的提交 询问是否保留，如果保留就新建other分组
   if (commits.unqualified.length > 0) {
     const { keep } = await askSaveUnqualifiedVCommits();
@@ -151,7 +126,7 @@ const appendToChangelog = async (cms, version) => {
     }
   }
 
-  const newContent = transformCommitsToMd(commits, version);
+  const newContent = transformCommitsToMd(commits, version, template, enums);
 
   // 判断是否本地有changelog.md文件 如果有 就在头部追加内容 没有就创建
   if (fse.existsSync('CHANGELOG.md')) {

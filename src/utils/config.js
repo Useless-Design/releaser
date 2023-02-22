@@ -59,6 +59,26 @@ class Config {
     return this.config.saveTemplate;
   }
 
+  getEmojis() {
+    const { enums, types } = this.config;
+    const emojis = {};
+    enums.forEach((item) => {
+      const type = types.find((t) => t.type === item);
+      emojis[item] = type.emoji;
+    });
+    return emojis;
+  }
+
+  getSections() {
+    const { enums, types } = this.config;
+    const sections = {};
+    enums.forEach((item) => {
+      const type = types.find((t) => t.type === item);
+      sections[item] = type.section;
+    });
+    return sections;
+  }
+
   // 根据分支名称判断是否符合配置
   isMatchBranch(curBranch) {
     const { branch } = this.config;
