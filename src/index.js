@@ -30,11 +30,11 @@ const init = async () => {
   if (!result.publish) {
     process.exit(0);
   }
-  // result.version = await askVersion(curVersion, allVersion);
-  // result.tag = await askTag();
-  // result.changelog = await askChangelog();
-  // result.push = await askPush();
-  // result.release = await askRelease();
+  result.version = await askVersion(curVersion, allVersion);
+  result.tag = await askTag();
+  result.changelog = await askChangelog();
+  result.push = await askPush();
+  result.release = await askRelease();
 
   resultHandler(result);
 };
